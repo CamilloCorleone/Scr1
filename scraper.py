@@ -36,7 +36,6 @@ detrules = {
 parselet = parslepy.Parselet(rules)
 detparselet = parslepy.Parselet(detrules)
 
-#inserire qui l'url della regione. Per la Basilicata sarà ad esempio http://www.subito.it/annunci-basilicata/vendita/appartamenti/
 
 next_url = "http://www.subito.it/annunci-emilia-romagna/vendita/appartamenti/"
 
