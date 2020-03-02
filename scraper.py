@@ -9,7 +9,6 @@ import string
 import datetime
 
 
-#usa parslepy per individuare i dati da screpare sulla pagina degli annunci http://www.subito.it/annunci-emilia-romagna/vendita/appartamenti/
 
 rules = {
     "annunci(.list li)": [
@@ -22,7 +21,6 @@ rules = {
     "next_page_url": ".//a[contains(., 'Avanti')]/@href",
 }
 
-#usa parslepy per individuare i dati da screpare sulla pagina di dettaglio del singolo annuncio
 detrules = {
       
         "info(div.annuncio_info li)": [{
@@ -55,7 +53,6 @@ while next_url:
         
         dethtml = requests.get("http://www.subito.it/"+release['annuncio_url'])
 		
-		#accede al contenuto della pagina di dettaglio dell'annuncio
         detextracted = detparselet.parse_fromstring(dethtml.content)
         pprint.pprint(detextracted)
 		
@@ -92,7 +89,6 @@ while next_url:
         lng=sub2[:-l2+e2]
         
         
-       #non ditemi niente. Non ho trovato una soluzione migliore per ottenere la data! :-)
             
         if string.find(release['annuncio_ora'], "Oggi")==0:
             today=datetime.date.today ()
@@ -132,14 +128,12 @@ while next_url:
         
         scraperwiki.sql.save(unique_keys=['giorno','url','desc','prezzo','comune','locali','superficie','lat','lng'], data=data)
 
-    # verivica se se c'è una ulteriore pagina da screpare
     
     if "next_page_url" in extracted:
         next_url = urlparse.urljoin(
             current_url,
             extracted["next_page_url"])
         
-        # verifica se la pagina è l'ultima
 
         if next_url == current_url:
             break
